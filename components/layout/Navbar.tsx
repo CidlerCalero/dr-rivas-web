@@ -1,109 +1,117 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Calendar } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Efecto para cambiar el estilo al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
-    { name: "Inicio", href: "/" },
-    { name: "Dr. Rivas", href: "/dr-rivas-contreras" },
-    { name: "Servicios", href: "/servicios" },
-    { name: "Clínica", href: "/clinica" },
-    { name: "Contacto", href: "/contacto" },
+    { href: "/", label: "Inicio" },
+    { href: "/dr-rivas-contreras", label: "Dr. Rivas Contreras" },
+    { href: "/servicios", label: "Servicios" },
+    { href: "/clinica", label: "Clínica" },
+    { href: "/contacto", label: "Contacto" },
   ];
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? "bg-white/90 backdrop-blur-md shadow-md py-2" 
-          : "bg-transparent py-4"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg h-16"
+          : "bg-white/80 backdrop-blur-sm h-20"
+      } flex items-center`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex justify-between items-center">
+          
           {/* LOGO */}
-          <div className="flex-shrink-0 flex flex-col">
-            <span className="text-xl font-bold text-primary leading-tight">
-              DR. RIVAS CONTRERAS
+          <Link href="/" className="flex flex-col group">
+            <span className="text-xl font-black text-primary group-hover:text-accent transition-colors leading-none">
+              DR. RIVAS
             </span>
-            <span className="text-[10px] tracking-[0.2em] text-secondary font-semibold uppercase">
-              Unidad de Gastroenterología
+            <span className="text-[9px] uppercase tracking-widest font-bold text-secondary">
+              Gastroenterología
             </span>
-          </div>
+          </Link>
 
-          {/* LINKS DESKTOP */}
-          <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-  <Link
-    key={link.name}
-    href={link.href}
-    className="text-sm font-medium text-darktext hover:text-primary transition-colors"
-  >
-    {link.name}
-  </Link>
-))}
+          {/* DESKTOP MENU */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-semibold text-darktext hover:text-primary transition-colors relative group"
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+              </Link>
+            ))}
             
-            {/* BOTÓN CTA */}
-            <Link
-              href="/contacto"
-              className="flex items-center gap-2 bg-accent hover:bg-primary text-white px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg hover:shadow-accent/30"
+            <a
+              href="https://wa.me/50373271322"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-success text-white px-6 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-all shadow-lg"
             >
-              <Calendar size={16} />
+              <Phone size={16} />
               Agendar Cita
-            </Link>
+            </a>
           </div>
 
-          {/* BOTÓN MÓVIL */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-dark-text hover:text-primary focus:outline-none"
-            >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
+          {/* MOBILE MENU BUTTON */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </div>
 
-      {/* MENÚ MÓVIL */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-b border-gray-100 animate-in fade-in slide-in-from-top-4">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block px-3 py-4 text-base font-medium text-dark-text hover:bg-gray-50 hover:text-primary"
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl"
+          >
+            <div className="px-4 py-6 space-y-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="block text-base font-semibold text-darktext hover:text-primary py-2 transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a
+                href="https://wa.me/50373271322"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 bg-success text-white px-6 py-3 rounded-full font-bold text-sm w-full"
               >
-                {link.name}
-              </Link>
-            ))}
-            <div className="pt-4 pb-2">
-               <Link
-                href="/contacto"
-                className="flex items-center justify-center gap-2 bg-accent text-white w-full py-4 rounded-xl font-bold"
-              >
-                <Calendar size={18} />
+                <Phone size={16} />
                 Agendar Cita
-              </Link>
+              </a>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
