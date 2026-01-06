@@ -18,7 +18,7 @@ const services = [
     desc: "Procedimiento especializado para alimentación segura por sonda.",
     icon: <ShieldCheck className="text-accent" />,
   },
-  // Agregaremos más en la página completa de servicios
+  // Agregaremos más en la página completa de servicios para no dejar fuera los demás servicios
 ];
 
 const Services = () => {
