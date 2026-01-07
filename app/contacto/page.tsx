@@ -1,28 +1,57 @@
+import Image from "next/image"; // ✅ IMPORTANTE: Agregar este import
 import ContactHero from "../../components/contact/ContactHero";
-import ContactCards from "../../components/contact/ContactCards";
+import ContactChannels from "../../components/contact/ContactChannels";
 import ContactForm from "../../components/contact/ContactForm";
+import ContactMap from "../../components/home/ContactMap";
 
 export default function ContactoPage() {
   return (
-    <div className="pt-20">
+    <div className="pt-20 bg-white">
       <ContactHero />
-      <ContactCards />
-      <ContactForm />
+      <ContactChannels />
       
-      {/* Sección de cierre con el mapa que ya tenemos */}
-      <section className="bg-neutralbg py-10">
-        <div className="max-w-7xl mx-auto px-4">
-           <div className="rounded-[40px] overflow-hidden shadow-2xl h-[450px] border-8 border-white">
-             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.132849504443!2d-89.20815!3d13.71!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6330960a349c25%3A0xc3c945143a59577!2sCalle%20Gabriela%20Mistral%20516%2C%20San%20Salvador!5e0!3m2!1ses!2ssv!4v1700000000000!5m2!1ses!2ssv"
-              className="w-full h-full"
-              style={{ border: 0 }}
-              allowFullScreen={true}
-              loading="lazy"
-            ></iframe>
-           </div>
+      <div className="py-24 bg-neutralbg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            
+            {/* FORMULARIO */}
+            <ContactForm />
+            
+            {/* SIDEBAR */}
+            <div className="space-y-8">
+              
+              {/* CARD DE ATENCIÓN */}
+              <div className="bg-primary p-10 rounded-[3rem] text-white shadow-2xl">
+                <h3 className="text-2xl font-bold mb-4">Atención Inmediata</h3>
+                <p className="text-blue-100 mb-6 leading-relaxed">
+                  Si presenta una emergencia digestiva o desea agendar para el mismo día, 
+                  le recomendamos contactarnos vía telefónica o WhatsApp.
+                </p>
+                <div className="space-y-4">
+                  <p className="flex items-center gap-3 font-bold text-lg italic text-accent">
+                    <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                    Disponibilidad: Lun - Sáb
+                  </p>
+                </div>
+              </div>
+              
+              {/* IMAGEN DECORATIVA - CORREGIDA */}
+              <div className="rounded-[3rem] overflow-hidden shadow-xl border-4 border-white h-64 relative">
+                <Image 
+                  src="/images/contact-ubicacion.webp" 
+                  alt="Ubicación Clínica" 
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
+      
+      <ContactMap />
     </div>
   );
 }

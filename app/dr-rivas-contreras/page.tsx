@@ -1,20 +1,25 @@
-import DrHero from "../../components/doctor/DrHero";
-import Timeline from "../../components/doctor/Timeline";
-import Certifications from "../../components/doctor/Certifications";
+import DrHeroProfile from "../../components/doctor/DrHeroProfile";
+import AcademicTrajectory from "../../components/doctor/AcademicTrajectory";
+import TeachingCommitment from "../../components/doctor/TeachingCommitment";
+import CertificationGrid from "../../components/doctor/CertificationGrid";
+import Stats from "../../components/home/Stats"; // Reutilizamos tus números pro
 
 export default function DoctorPage() {
   return (
-    <div className="pt-20"> 
-      <DrHero />
-      <Timeline />
-      <Certifications />
+    <div className="pt-20 bg-white">
+      <DrHeroProfile />
+      <Stats />
+      <AcademicTrajectory />
+      <TeachingCommitment />
+      <CertificationGrid />
       
-      <section className="py-20 bg-primary text-center text-white">
+      {/* Cierre de página */}
+      <section className="py-20 bg-neutralbg text-center">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-6 italic">
-            &quot;Mi compromiso es dedicar el tiempo que cada paciente necesita. La medicina es técnica, pero sobre todo es comprensión humana.&quot;
-          </h2>
-          <p className="text-blue-200 font-bold uppercase tracking-widest text-sm">— Dr. René Ricardo Rivas Contreras</p>
+          <p className="text-primary font-black text-2xl italic leading-relaxed">
+            &quot;Mi mayor satisfacción es ver la recuperación de mis pacientes y transmitir mi conocimiento a las nuevas generaciones de médicos.&quot;
+          </p>
+          <div className="w-20 h-1 bg-accent mx-auto mt-8"></div>
         </div>
       </section>
     </div>
