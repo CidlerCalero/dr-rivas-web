@@ -7,15 +7,25 @@ import {
   Droplets, Scissors, Stethoscope, MessageCircle 
 } from "lucide-react";
 
-// Base de datos de servicios
-const servicesData = [
+// Definimos una interfaz para el Servicio para evitar el uso de 'any'
+interface Service {
+  id: number;
+  title: string;
+  shortDesc: string;
+  icon: React.ReactElement;
+  image: string;
+  modalImage: string;
+  content: React.ReactNode;
+}
+
+const servicesData: Service[] = [
   {
     id: 1,
     title: "Endoscopía Digestiva",
     shortDesc: "Diagnóstico preciso y efectivo de trastornos gastrointestinales.",
     icon: <Activity />,
-    image: "/images/service-1.webp", // Foto miniatura
-    modalImage: "/images/service-1-detail.jpg", // Foto cabecera modal
+    image: "/images/service-1.webp",
+    modalImage: "/images/service-1-detail.jpg",
     content: (
       <>
         <h4 className="text-xl font-bold text-primary mb-4">¿Qué es una Endoscopía Digestiva?</h4>
@@ -29,6 +39,7 @@ const servicesData = [
       </>
     )
   },
+  // ... Los demás servicios se mantienen igual, solo asegúrate que el array use la interfaz Service[]
   {
     id: 2,
     title: "Video Colonoscopía",
@@ -54,8 +65,8 @@ const servicesData = [
     shortDesc: "Eficaz procedimiento para una alimentación adecuada por sonda.",
     icon: <ShieldCheck />,
     image: "/images/service-3.webp",
-    modalImage: "/images/service-3-detail.jpg",
-    content: (
+    modalImage: "/images/service-3-detail.webp",
+     content: (
       <>
         <p className="text-gray-600 mb-6">Es un procedimiento médico para insertar un tubo de alimentación directamente en el estómago mediante un endoscopio, evitando cirugía abierta.</p>
         <h4 className="text-xl font-bold text-primary mb-4">¿Cuál es la preparación?</h4>
@@ -72,7 +83,7 @@ const servicesData = [
     icon: <Droplets />,
     image: "/images/service-4.jpg",
     modalImage: "/images/service-4-detail.jpg",
-    content: (
+ content: (
       <>
         <h4 className="text-xl font-bold text-primary mb-4">¿Cómo se realiza?</h4>
         <p className="text-gray-600 mb-6">Se inyecta una sustancia esclerosante mediante un endoscopio en las úlceras gástricas o esofágicas para cerrarlas de forma inmediata.</p>
@@ -103,7 +114,7 @@ const servicesData = [
     icon: <Stethoscope />,
     image: "/images/service-6.jpg",
     modalImage: "/images/service-6-detail.png",
-    content: (
+   content: (
       <>
         <p className="text-gray-600 mb-6">Tratamiento para venas dilatadas en el esófago, comúnmente causadas por enfermedades hepáticas como cirrosis.</p>
         <h4 className="text-xl font-bold text-primary mb-4">Instrucciones</h4>
@@ -116,9 +127,8 @@ const servicesData = [
 ];
 
 const ServiceCatalog = () => {
-  const [selectedService, setSelectedService] = useState<any>(null);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
-  // Bloquear scroll cuando el modal está abierto
   useEffect(() => {
     if (selectedService) {
       document.body.style.overflow = "hidden";
@@ -130,7 +140,6 @@ const ServiceCatalog = () => {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-primary mb-4 tracking-tight">
             Conoce cómo podemos ayudarte
@@ -138,7 +147,6 @@ const ServiceCatalog = () => {
           <p className="text-gray-500 text-lg">Haga clic en un servicio para ver información detallada.</p>
         </div>
 
-        {/* GRID DE SERVICIOS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesData.map((service) => (
             <motion.div
@@ -152,7 +160,10 @@ const ServiceCatalog = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent flex items-end p-8">
                   <div className="text-white">
                     <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                      {React.cloneElement(service.icon as React.ReactElement, { size: 24 })}
+                      {/* SOLUCIÓN AL ERROR DE VERCEL AQUÍ: */}
+                      {React.cloneElement(service.icon as React.ReactElement<{ size?: number }>, { 
+                        size: 24 
+                      })}
                     </div>
                     <h3 className="text-2xl font-bold leading-tight">{service.title}</h3>
                   </div>
@@ -169,11 +180,9 @@ const ServiceCatalog = () => {
         </div>
       </div>
 
-      {/* MODAL / POP-UP */}
       <AnimatePresence>
         {selectedService && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
-            {/* Backdrop */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -182,14 +191,12 @@ const ServiceCatalog = () => {
               className="absolute inset-0 bg-primary/40 backdrop-blur-md"
             />
 
-            {/* Modal Content */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               className="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[3rem] shadow-2xl no-scrollbar"
             >
-              {/* Botón Cerrar */}
               <button 
                 onClick={() => setSelectedService(null)}
                 className="absolute top-6 right-6 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-md p-3 rounded-full text-white transition-colors"
@@ -197,23 +204,18 @@ const ServiceCatalog = () => {
                 <X size={24} />
               </button>
 
-              {/* Imagen Cabecera Modal */}
               <div className="relative h-64 md:h-80 w-full">
                 <Image src={selectedService.modalImage} alt={selectedService.title} fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-black/20" />
               </div>
 
-              {/* Texto Detallado */}
               <div className="p-8 md:p-16">
                 <h3 className="text-4xl md:text-5xl font-black text-primary mb-8 tracking-tighter">
                   {selectedService.title}
                 </h3>
-                
                 <div className="prose prose-lg max-w-none">
                   {selectedService.content}
                 </div>
-
-                {/* CTA dentro del modal */}
                 <div className="mt-12 flex justify-center">
                   <a 
                     href="https://wa.me/50373271322" 
