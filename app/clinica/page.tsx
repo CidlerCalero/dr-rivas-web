@@ -3,7 +3,7 @@ import ClinicPhilosophy from "../../components/clinic/ClinicPhilosophy";
 import ClinicGallery from "../../components/clinic/ClinicGallery";
 import StaffDetail from "../../components/clinic/StaffDetail";
 import WhyUs from "../../components/clinic/WhyUs";
-import ContactCTA from "../../components/services/ContactCTA";
+import AppointmentCTA from "../../components/services/AppointmentCTA";
 
 export default function ClinicaPage() {
   return (
@@ -13,7 +13,7 @@ export default function ClinicaPage() {
       <ClinicGallery />
       <StaffDetail />
       <WhyUs />
-      <ContactCTA />
+      <AppointmentCTA />
     </div>
   );
 }
