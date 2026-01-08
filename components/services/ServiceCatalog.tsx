@@ -4,28 +4,31 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   X, Activity, Search, ShieldCheck, 
-  Droplets, Scissors, Stethoscope, MessageCircle 
+  Droplets, Scissors, Stethoscope, MessageCircle,
+  LucideIcon // Importamos el tipo para TypeScript
 } from "lucide-react";
 
-// Definimos una interfaz para el Servicio para evitar el uso de 'any'
-interface Service {
+// Definimos la interfaz para que TypeScript esté feliz
+interface ServiceItem {
   id: number;
   title: string;
   shortDesc: string;
-  icon: React.ReactElement;
+  icon: LucideIcon; // El tipo correcto para componentes de Lucide
   image: string;
   modalImage: string;
   content: React.ReactNode;
+  slug: string;
 }
 
-const servicesData: Service[] = [
+const servicesData: ServiceItem[] = [
   {
     id: 1,
     title: "Endoscopía Digestiva",
     shortDesc: "Diagnóstico preciso y efectivo de trastornos gastrointestinales.",
-    icon: <Activity />,
+    icon: Activity, // CAMBIO: Pasamos el componente directamente
     image: "/images/service-1.webp",
     modalImage: "/images/service-1-detail.jpg",
+    slug: "endoscopia",
     content: (
       <>
         <h4 className="text-xl font-bold text-primary mb-4">¿Qué es una Endoscopía Digestiva?</h4>
@@ -39,14 +42,14 @@ const servicesData: Service[] = [
       </>
     )
   },
-  // ... Los demás servicios se mantienen igual, solo asegúrate que el array use la interfaz Service[]
   {
     id: 2,
     title: "Video Colonoscopía",
     shortDesc: "Detección temprana de enfermedades del colon.",
-    icon: <Search />,
-    image: "/images/service-2.jpg",
-    modalImage: "/images/service-2-detail.jpg",
+    icon: Search,
+    image:  "/images/service-2.jpg",
+    modalImage:  "/images/service-2-detail.jpg",
+    slug: "colonoscopia",
     content: (
       <>
         <h4 className="text-xl font-bold text-primary mb-4">¿Qué es una Video Colonoscopía?</h4>
@@ -63,10 +66,11 @@ const servicesData: Service[] = [
     id: 3,
     title: "Gastrostomía Endoscópica (GEP)",
     shortDesc: "Eficaz procedimiento para una alimentación adecuada por sonda.",
-    icon: <ShieldCheck />,
+    icon: ShieldCheck,
     image: "/images/service-3.webp",
     modalImage: "/images/service-3-detail.webp",
-     content: (
+    slug: "gastrostomia",
+    content: (
       <>
         <p className="text-gray-600 mb-6">Es un procedimiento médico para insertar un tubo de alimentación directamente en el estómago mediante un endoscopio, evitando cirugía abierta.</p>
         <h4 className="text-xl font-bold text-primary mb-4">¿Cuál es la preparación?</h4>
@@ -80,10 +84,11 @@ const servicesData: Service[] = [
     id: 4,
     title: "Esclerosis de Úlceras",
     shortDesc: "Procedimiento para cerrar úlceras gástricas y prevenir el sangrado.",
-    icon: <Droplets />,
+    icon: Droplets,
     image: "/images/service-4.jpg",
-    modalImage: "/images/service-4-detail.jpg",
- content: (
+    modalImage:  "/images/service-4-detail.jpg",
+    slug: "esclerosis",
+    content: (
       <>
         <h4 className="text-xl font-bold text-primary mb-4">¿Cómo se realiza?</h4>
         <p className="text-gray-600 mb-6">Se inyecta una sustancia esclerosante mediante un endoscopio en las úlceras gástricas o esofágicas para cerrarlas de forma inmediata.</p>
@@ -96,9 +101,10 @@ const servicesData: Service[] = [
     id: 5,
     title: "Clip Hemostático",
     shortDesc: "Dispositivo para cerrar vasos sanguíneos y detener hemorragias.",
-    icon: <Scissors />,
+    icon: Scissors,
     image: "/images/service-5.jpg",
     modalImage: "/images/service-5-detail.jpg",
+    slug: "clip-hemostatico",
     content: (
       <>
         <p className="text-gray-600 mb-6">Procedimiento para detener sangrados internos utilizando un dispositivo en forma de clip para cerrar vasos sanguíneos o conductos.</p>
@@ -111,10 +117,11 @@ const servicesData: Service[] = [
     id: 6,
     title: "Ligadura de Várices",
     shortDesc: "Procedimiento para tratar las venas inflamadas del esófago.",
-    icon: <Stethoscope />,
+    icon: Stethoscope,
     image: "/images/service-6.jpg",
     modalImage: "/images/service-6-detail.png",
-   content: (
+    slug: "ligadura",
+    content: (
       <>
         <p className="text-gray-600 mb-6">Tratamiento para venas dilatadas en el esófago, comúnmente causadas por enfermedades hepáticas como cirrosis.</p>
         <h4 className="text-xl font-bold text-primary mb-4">Instrucciones</h4>
@@ -127,7 +134,7 @@ const servicesData: Service[] = [
 ];
 
 const ServiceCatalog = () => {
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
 
   useEffect(() => {
     if (selectedService) {
@@ -140,11 +147,12 @@ const ServiceCatalog = () => {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-primary mb-4 tracking-tight">
             Conoce cómo podemos ayudarte
           </h2>
-          <p className="text-gray-500 text-lg">Haga clic en un servicio para ver información detallada.</p>
+          <p className="text-gray-500 text-lg italic">Haga clic en un servicio para ver información detallada.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -159,11 +167,9 @@ const ServiceCatalog = () => {
                 <Image src={service.image} alt={service.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent flex items-end p-8">
                   <div className="text-white">
-                    <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                      {/* SOLUCIÓN AL ERROR DE VERCEL AQUÍ: */}
-                      {React.cloneElement(service.icon as React.ReactElement<{ size?: number }>, { 
-                        size: 24 
-                      })}
+                    <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-white group-hover:text-primary transition-colors">
+                      {/* CAMBIO CLAVE: Renderizamos el icono como componente */}
+                      <service.icon size={24} />
                     </div>
                     <h3 className="text-2xl font-bold leading-tight">{service.title}</h3>
                   </div>
@@ -213,9 +219,11 @@ const ServiceCatalog = () => {
                 <h3 className="text-4xl md:text-5xl font-black text-primary mb-8 tracking-tighter">
                   {selectedService.title}
                 </h3>
+                
                 <div className="prose prose-lg max-w-none">
                   {selectedService.content}
                 </div>
+
                 <div className="mt-12 flex justify-center">
                   <a 
                     href="https://wa.me/50373271322" 
