@@ -2,109 +2,206 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Youtube, ArrowUp } from "lucide-react";
+import { MapPin, Phone, Clock, Facebook, Instagram, Youtube, ArrowUp, MessageCircle, Award, ShieldCheck } from "lucide-react";
 
 const Footer = () => {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
-  return (
-    <footer className="bg-primary text-white pt-24 pb-12 relative overflow-hidden">
-      {/* Botón Volver Arriba */}
-      <button 
-        onClick={scrollToTop}
-        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-accent p-4 rounded-full shadow-2xl hover:bg-white hover:text-accent transition-all group"
-      >
-        <ArrowUp size={24} className="group-hover:-translate-y-1 transition-transform" />
-      </button>
+  const socialLinks = [
+    { 
+      icon: <Facebook size={18} />, 
+      href: "https://www.facebook.com/umgqes",
+      label: "Facebook"
+    },
+    { 
+      icon: <Instagram size={18} />, 
+      href: "https://www.instagram.com/rener.rivas/",
+      label: "Instagram"
+    },
+    { 
+      icon: <Youtube size={18} />, 
+      href: "#",
+      label: "YouTube",
+      disabled: true
+    }
+  ];
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+  const navLinks = [
+    { href: "/", label: "Inicio" },
+    { href: "/dr-rivas-contreras", label: "Dr. Rivas Contreras" },
+    { href: "/servicios", label: "Servicios" },
+    { href: "/clinica", label: "Clínica" },
+    { href: "/contacto", label: "Contacto" }
+  ];
+
+  return (
+    <footer className="bg-gradient-to-br from-primary via-primary to-secondary text-white relative">
+      
+      {/* ========== CONTENEDOR DEL BOTÓN (FUERA DEL OVERFLOW) ========== */}
+      <div className="relative z-50">
+        <button 
+          onClick={scrollToTop}
+          className="absolute -top-6 left-1/2 -translate-x-1/2 bg-accent p-4 rounded-full shadow-2xl hover:bg-white hover:text-primary transition-all group border-4 border-white/10"
+          aria-label="Volver arriba"
+        >
+          <ArrowUp size={24} className="group-hover:-translate-y-1 transition-transform" />
+        </button>
+      </div>
+
+      {/* ========== CONTENIDO CON OVERFLOW (PARA LUCES DE FONDO) ========== */}
+      <div className="pt-20 pb-8 overflow-hidden relative">
+        
+        {/* Decoración de fondo */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          {/* COL 1: LOGO E INFO */}
-          <div className="space-y-8">
-          <Link href="/" className="inline-block bg-white p-4 rounded-2xl shadow-xl hover:scale-105 transition-transform">
-  <div className="relative w-[160px] h-[45px]">
-    <Image 
-      src="/images/logo.png" 
-      alt="Logo Unidad de Gastroenterología" 
-      fill 
-      className="object-contain" 
-    />
-  </div>
-</Link>
-<p className="text-blue-100/70 text-sm leading-relaxed mt-8">
-  Dr. René Ricardo Rivas Contreras: Más de 30 años de experiencia al servicio de su salud digestiva con ética y tecnología de vanguardia.
-</p>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-accent transition-all"><Facebook size={18} /></a>
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-accent transition-all"><Instagram size={18} /></a>
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-accent transition-all"><Youtube size={18} /></a>
+          {/* ========== DESKTOP LAYOUT ========== */}
+          <div className="hidden lg:grid grid-cols-4 gap-12 mb-16">
+            
+            {/* COL 1: LOGO E INFO */}
+            <div className="space-y-6">
+              <Link href="/" className="inline-block bg-white p-4 rounded-2xl shadow-xl hover:scale-105 transition-transform">
+                <div className="relative w-[160px] h-[45px]">
+                  <Image 
+                    src="/images/logo.png" 
+                    alt="Logo Unidad de Gastroenterología Rivas Torres" 
+                    fill 
+                    className="object-contain" 
+                  />
+                </div>
+              </Link>
+              
+              <div>
+                <h3 className="text-xl font-black mb-2">Dr. René Ricardo Rivas Contreras</h3>
+                <p className="text-blue-100 text-sm leading-relaxed">
+                  Más de 30 años de experiencia al servicio de tu salud digestiva.
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                {socialLinks.map((social, index) => (
+                  social.disabled ? (
+                    <span key={index} className="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center opacity-40 cursor-not-allowed">
+                      {social.icon}
+                    </span>
+                  ) : (
+                    <a 
+                      key={index}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center hover:bg-accent hover:scale-110 transition-all"
+                      aria-label={social.label}
+                    >
+                      {social.icon}
+                    </a>
+                  )
+                ))}
+              </div>
+            </div>
+
+            {/* COL 2: NAVEGACIÓN */}
+            <div>
+              <h4 className="text-lg font-black mb-6 flex items-center gap-2">
+                <span className="w-8 h-1 bg-accent"></span>
+                Navegación
+              </h4>
+              <ul className="space-y-3">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-blue-100 hover:text-white hover:translate-x-2 transition-all flex items-center gap-2 group">
+                      <span className="w-1.5 h-1.5 bg-accent/50 rounded-full group-hover:bg-accent transition-all"></span>
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* COL 3: CONTACTO */}
+            <div>
+              <h4 className="text-lg font-black mb-6 flex items-center gap-2">
+                <span className="w-8 h-1 bg-accent"></span>
+                Contacto
+              </h4>
+              <ul className="space-y-5">
+                <li className="flex gap-3 text-sm text-blue-100 leading-relaxed">
+                  <MapPin className="text-accent shrink-0 mt-0.5" size={18} />
+                  <div>
+                    <p className="font-bold text-white mb-1">Unidad de Gastroenterología Rivas Torres</p>
+                    <p>Calle Gabriela Mistral #516, San Salvador</p>
+                  </div>
+                </li>
+                <li className="flex gap-3 text-sm">
+                  <Phone className="text-accent shrink-0 mt-0.5" size={18} />
+                  <div className="space-y-1">
+                    <a href="tel:50322986100" className="block hover:text-white transition-colors">(503) 2298-6100</a>
+                    <a href="https://wa.me/50373271322" target="_blank" className="block hover:text-white transition-colors">(503) 7327-1322</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* COL 4: LICENCIA */}
+            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-3xl border border-white/20">
+              <div className="flex items-center gap-3 mb-4">
+                <ShieldCheck className="text-accent" size={24} />
+                <h4 className="text-lg font-black">Garantía</h4>
+              </div>
+              <div className="bg-white/10 rounded-2xl p-4 text-center border border-accent/30">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Award className="text-accent" size={20} />
+                  <p className="text-accent font-black text-sm uppercase">Licencia</p>
+                </div>
+                <p className="text-4xl font-black text-white">#91</p>
+              </div>
             </div>
           </div>
 
-          {/* COL 2: ENLACES */}
-          <div>
-            <h4 className="text-lg font-black mb-8 uppercase tracking-widest text-accent italic">Navegación</h4>
-            <ul className="space-y-4">
-              {["Inicio", "Dr. Rivas Contreras", "Servicios", "Clínica", "Contacto"].map((item) => (
-                <li key={item}>
-                  <Link 
-                    href={item === "Inicio" ? "/" : `/${item.toLowerCase().replace(/ /g, "-")}`}
-                    className="text-sm text-blue-100/60 hover:text-white hover:translate-x-2 transition-all flex items-center gap-2 group"
-                  >
-                    <span className="w-1 h-1 bg-accent rounded-full group-hover:w-3 transition-all"></span>
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* COL 3: CONTACTO */}
-          <div>
-            <h4 className="text-lg font-black mb-8 uppercase tracking-widest text-accent italic">Visítanos</h4>
-            <ul className="space-y-6">
-              <li className="flex gap-4">
-                <MapPin className="text-accent shrink-0" size={20} />
-                <p className="text-sm text-blue-100/70 leading-relaxed">
-                  Calle Gabriela Mistral #516, Urb. Buenos Aires, San Salvador. <br />
-                  <span className="font-bold text-white">Centro de Hemodiálisis y Salud Renal.</span>
-                </p>
-              </li>
-              <li className="flex gap-4">
-                <Phone className="text-accent shrink-0" size={20} />
-                <div className="text-sm text-blue-100/70 space-y-1">
-                  <p>(503) 2298-6100</p>
-                  <p>(503) 7327-1233</p>
+          {/* ========== MOBILE LAYOUT ========== */}
+          <div className="lg:hidden space-y-8 mb-12">
+            <div className="text-center">
+              <Link href="/" className="inline-block bg-white p-4 rounded-2xl shadow-xl">
+                <div className="relative w-[140px] h-[40px]">
+                  <Image src="/images/logo.png" alt="Logo" fill className="object-contain" />
                 </div>
-              </li>
-              <li className="flex gap-4">
-                <Clock className="text-accent shrink-0" size={20} />
-                <p className="text-sm text-blue-100/70">Lun-Vie: 9AM-5PM <br /> Sáb: 9AM-12M</p>
-              </li>
-            </ul>
+              </Link>
+              <h3 className="text-lg font-black mt-4">Dr. René Ricardo Rivas Contreras</h3>
+            </div>
+
+            <div className="space-y-3">
+              <a href="https://www.waze.com/ul?ll=13.711364,-89.210369&navigate=yes" target="_blank" className="flex items-center justify-center gap-3 bg-white/10 border border-white/20 text-white px-6 py-4 rounded-2xl font-bold text-sm w-full">
+                <MapPin size={20} className="text-accent" /> Cómo Llegar
+              </a>
+              <a href="https://wa.me/50373271322" target="_blank" className="flex items-center justify-center gap-3 bg-green-600 text-white px-6 py-4 rounded-2xl font-bold text-sm w-full shadow-xl">
+                <MessageCircle size={20} /> Citas: (503) 7327-1322
+              </a>
+            </div>
+
+            <div className="flex justify-center gap-4">
+              {socialLinks.map((social, index) => (
+                !social.disabled && (
+                  <a key={index} href={social.href} target="_blank" className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center hover:bg-accent transition-all">
+                    {social.icon}
+                  </a>
+                )
+              ))}
+            </div>
           </div>
 
-          {/* COL 4: LICENCIA Y CREDENCIALES */}
-          <div className="bg-white/5 p-8 rounded-[3rem] border border-white/10 text-center flex flex-col items-center justify-center">
-            <div className="text-accent font-black text-4xl mb-2 italic">#91</div>
-            <p className="text-[10px] uppercase font-black tracking-[0.3em] mb-6 opacity-60">Licencia MINSAL</p>
-            <div className="h-px w-12 bg-accent/30 mb-6"></div>
-            <p className="text-xs text-blue-100/50 leading-relaxed">
-              Clínica debidamente autorizada y registrada ante las autoridades de salud de El Salvador.
+          {/* ========== COPYRIGHT BAR ========== */}
+          <div className="pt-8 border-t border-white/10 text-center">
+            <p className="text-xs text-blue-200 font-medium">
+              © 2026 Dr. René Ricardo Rivas Contreras - Todos los derechos reservados
             </p>
           </div>
-        </div>
 
-        {/* COPYRIGHT BAR */}
-        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-blue-100/30">
-          <p>© 2026 Dr. René Ricardo Rivas Contreras - Gastroenterólogo</p>
-          <div className="flex gap-8">
-            <Link href="#" className="hover:text-white">Aviso de Privacidad</Link>
-            <Link href="#" className="hover:text-white">Términos de Uso</Link>
-          </div>
         </div>
       </div>
     </footer>

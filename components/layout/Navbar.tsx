@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Phone, MessageCircle, Facebook, Instagram, Youtube, MapPin } from "lucide-react";
+import { Menu, X, Phone, MessageCircle, Facebook, Instagram, Youtube, MapPin, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
@@ -11,7 +11,6 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Se activa el cambio después de 50px de scroll
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
@@ -26,48 +25,103 @@ const Navbar = () => {
     { href: "/contacto", label: "Contacto" },
   ];
 
+  const phoneNumbers = [
+    { number: "(503) 2298-6100", tel: "50322986100", isWhatsApp: false },
+    { number: "(503) 7327-1322", tel: "50373271322", isWhatsApp: true },
+    { number: "(503) 7526-5861", tel: "50375265861", isWhatsApp: true }
+  ];
+
+  const socialLinks = [
+    { 
+      icon: <Facebook size={14} />, 
+      href: "https://www.facebook.com/umgqes",
+      label: "Facebook"
+    },
+    { 
+      icon: <Instagram size={14} />, 
+      href: "https://www.instagram.com/rener.rivas/",
+      label: "Instagram"
+    },
+    { 
+      icon: <Youtube size={14} />, 
+      href: "#",
+      label: "YouTube",
+      disabled: true
+    }
+  ];
+
   return (
-    // CONTENEDOR MAESTRO: Animamos el Y para esconder la barra azul
     <header 
       className={`fixed top-0 left-0 right-0 z-[100] transition-transform duration-500 ease-in-out ${
-        isScrolled ? "-translate-y-[40px]" : "translate-y-0"
+        isScrolled ? "-translate-y-[44px]" : "translate-y-0"
       }`}
     >
-      {/* TOP BAR: Altura fija de 40px */}
-      <div className="bg-primary h-[40px] hidden lg:flex items-center">
-        <div className="max-w-7xl mx-auto px-4 w-full flex justify-between items-center text-[11px] font-bold text-white/90 uppercase tracking-widest">
+      {/* ========== TOP BAR DESKTOP ========== */}
+      <div className="bg-primary h-[44px] hidden lg:flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center text-[11px] font-bold text-white/90 uppercase tracking-wider">
+          
+          {/* Teléfonos */}
           <div className="flex gap-6">
-            <a href="tel:50322986100" className="flex items-center gap-2 hover:text-accent transition-colors">
-              <Phone size={12} className="text-accent" /> (503) 2298-6100
-            </a>
-            <a href="https://wa.me/50373271233" className="flex items-center gap-2 hover:text-accent transition-colors">
-              <MessageCircle size={12} className="text-accent" /> (503) 7327-1233
-            </a>
+            {phoneNumbers.map((phone, index) => (
+              <a 
+                key={index}
+                href={phone.isWhatsApp ? `https://wa.me/${phone.tel}` : `tel:${phone.tel}`}
+                target={phone.isWhatsApp ? "_blank" : undefined}
+                rel={phone.isWhatsApp ? "noopener noreferrer" : undefined}
+                className="flex items-center gap-2 hover:text-accent transition-colors group"
+              >
+                {phone.isWhatsApp ? (
+                  <MessageCircle size={13} className="text-green-400 group-hover:scale-110 transition-transform" />
+                ) : (
+                  <Phone size={13} className="text-accent group-hover:scale-110 transition-transform" />
+                )}
+                {phone.number}
+              </a>
+            ))}
           </div>
+
+          {/* Redes Sociales */}
           <div className="flex items-center gap-6">
-            <div className="flex gap-4 border-r border-white/20 pr-6">
-              <a href="#" className="hover:text-accent transition-colors"><Facebook size={14} /></a>
-              <a href="#" className="hover:text-accent transition-colors"><Instagram size={14} /></a>
-              <a href="#" className="hover:text-accent transition-colors"><Youtube size={14} /></a>
-            </div>
-            <div className="flex items-center gap-2">
-              <MapPin size={12} className="text-accent" /> San Salvador, El Salvador
+            <div className="flex gap-4">
+              {socialLinks.map((social, index) => (
+                social.disabled ? (
+                  <span 
+                    key={index}
+                    className="opacity-40 cursor-not-allowed"
+                    title="Próximamente"
+                  >
+                    {social.icon}
+                  </span>
+                ) : (
+                  <a 
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-accent transition-all hover:scale-110"
+                    aria-label={social.label}
+                  >
+                    {social.icon}
+                  </a>
+                )
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* MAIN BAR: Sube junto con el Top Bar */}
+      {/* ========== MAIN NAVBAR ========== */}
       <nav
         className={`bg-white transition-all duration-500 ${
-          isScrolled ? "shadow-xl py-2 bg-white/95 backdrop-blur-md" : "py-4"
+          isScrolled ? "shadow-xl py-2 bg-white/95 backdrop-blur-md" : "py-3"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
+            
             {/* LOGO */}
             <Link href="/" className="flex items-center transition-transform hover:scale-105">
-              <div className="relative w-[180px] h-[50px] md:w-[220px] md:h-[60px]">
+              <div className="relative w-[160px] h-[45px] md:w-[200px] md:h-[55px]">
                 <Image 
                   src="/images/logo.png" 
                   alt="Unidad de Gastroenterología Rivas Torres" 
@@ -79,47 +133,132 @@ const Navbar = () => {
             </Link>
 
             {/* DESKTOP MENU */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-2 text-[13px] font-black text-primary/70 hover:text-primary transition-all relative group uppercase"
+                  className="px-4 py-2 text-[13px] font-black text-primary/70 hover:text-primary transition-all relative group uppercase tracking-wide"
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-accent rounded-full group-hover:w-4 transition-all" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-accent rounded-full group-hover:w-5 transition-all" />
                 </Link>
               ))}
-              <Link
-                href="/contacto"
-                className="ml-6 bg-primary text-white px-7 py-3 rounded-full font-black text-xs uppercase tracking-widest hover:bg-accent hover:scale-105 transition-all shadow-lg"
+
+              <a 
+                href="https://wa.me/50373271322?text=Hola,%20deseo%20agendar%20una%20consulta"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-4 flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full font-black text-xs uppercase tracking-widest hover:bg-green-700 hover:scale-105 transition-all shadow-lg shadow-green-600/30"
               >
-                Cómo llegar
-              </Link>
+                <Calendar size={16} />
+                Haz tu Cita
+              </a>
+
+              <a 
+                href="https://www.waze.com/ul?ll=13.711364,-89.210369&navigate=yes"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-black text-xs uppercase tracking-widest hover:bg-accent hover:scale-105 transition-all shadow-lg shadow-primary/30"
+              >
+                <MapPin size={16} />
+                Cómo Llegar
+              </a>
             </div>
 
             {/* MOBILE BUTTON */}
-            <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 rounded-xl bg-neutralbg text-primary">
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className="lg:hidden p-2.5 rounded-xl bg-gray-50 text-primary hover:bg-primary hover:text-white transition-all"
+              aria-label="Toggle menu"
+            >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
 
-        {/* MOBILE MENU */}
+        {/* ========== MOBILE MENU ========== */}
         <AnimatePresence>
           {isOpen && (
             <motion.div 
               initial={{ height: 0, opacity: 0 }} 
               animate={{ height: "auto", opacity: 1 }} 
               exit={{ height: 0, opacity: 0 }}
-              className="lg:hidden bg-white border-t border-neutralbg overflow-hidden"
+              className="lg:hidden bg-white border-t border-gray-100 overflow-hidden"
             >
-              <div className="px-6 py-10 space-y-6">
+              <div className="px-6 py-8 space-y-6">
                 {navLinks.map((link) => (
-                  <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="block text-2xl font-black text-primary">
+                  <Link 
+                    key={link.href} 
+                    href={link.href} 
+                    onClick={() => setIsOpen(false)} 
+                    className="block text-xl font-black text-primary hover:text-accent transition-colors"
+                  >
                     {link.label}
                   </Link>
                 ))}
+
+                <div className="border-t border-gray-200 my-6"></div>
+
+                <div className="space-y-4">
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Contacto</p>
+                  {phoneNumbers.map((phone, index) => (
+                    <a 
+                      key={index}
+                      href={phone.isWhatsApp ? `https://wa.me/${phone.tel}` : `tel:${phone.tel}`}
+                      target={phone.isWhatsApp ? "_blank" : undefined}
+                      rel={phone.isWhatsApp ? "noopener noreferrer" : undefined}
+                      className="flex items-center gap-3 text-sm font-bold text-primary hover:text-accent transition-colors"
+                    >
+                      <div className={phone.isWhatsApp ? "bg-green-500/10 p-2 rounded-lg" : "bg-primary/10 p-2 rounded-lg"}>
+                        {phone.isWhatsApp ? (
+                          <MessageCircle size={18} className="text-green-600" />
+                        ) : (
+                          <Phone size={18} className="text-primary" />
+                        )}
+                      </div>
+                      {phone.number}
+                    </a>
+                  ))}
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Síguenos</p>
+                  <div className="flex gap-3">
+                    {socialLinks.map((social, index) => (
+                      social.disabled ? (
+                        <span 
+                          key={index}
+                          className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center opacity-40 cursor-not-allowed"
+                        >
+                          {social.icon}
+                        </span>
+                      ) : (
+                        <a 
+                          key={index}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                          aria-label={social.label}
+                        >
+                          {social.icon}
+                        </a>
+                      )
+                    ))}
+                  </div>
+                </div>
+
+                <a 
+                  href="https://wa.me/50373271322?text=Hola,%20deseo%20agendar%20una%20consulta"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-center gap-3 bg-green-600 text-white px-8 py-4 rounded-full font-black text-sm uppercase tracking-wide w-full shadow-xl shadow-green-600/30"
+                >
+                  <Calendar size={20} />
+                  Haz tu Cita
+                </a>
               </div>
             </motion.div>
           )}
