@@ -47,7 +47,7 @@ const Experience = () => {
             
             <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white">
               <Image 
-                src="/images/doctor-office.avif" 
+                src="/images/doctor-office.jpg" 
                 alt="Dr. Rivas en su clínica"
                 width={600}
                 height={700}
