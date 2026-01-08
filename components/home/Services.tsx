@@ -32,7 +32,7 @@ const services = [
     title: "Gastrostomía (GEP)",
     desc: "Eficaz procedimiento endoscópico para garantizar una alimentación adecuada por sonda en pacientes que lo requieren.",
     icon: <Droplets size={24} />,
-    image: "/images/service-gastrostomia.jpg",
+    image: "/images/gastrostomia.jpg",
     slug: "gastrostomia"
   },
   {
