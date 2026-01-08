@@ -7,7 +7,7 @@ import AppointmentCTA from "../../components/services/AppointmentCTA";
 
 export default function ClinicaPage() {
   return (
-    <div className="pt-20 bg-white">
+    <div className="bg-white">
       <ClinicHero />
       <ClinicPhilosophy />
       <ClinicGallery />

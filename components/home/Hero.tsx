@@ -8,7 +8,7 @@ import { Phone, MapPin, Award, Users, ArrowRight, Calendar } from "lucide-react"
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <section className="relative min-h-screen flex items-center pt-38 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-50">
       
       {/* Decoración de fondo */}
       <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
