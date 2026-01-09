@@ -53,10 +53,13 @@ const Experience = () => {
                 height={700}
                 className="w-full h-auto object-cover"
               />
-              <div className="absolute bottom-10 right-10 bg-white p-6 rounded-3xl shadow-2xl border border-blue-50">
-                <p className="text-4xl font-black text-primary leading-none">30</p>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-2">Años de Excelencia</p>
-              </div>
+             <div className="absolute bottom-10 right-10 bg-white p-6 rounded-3xl shadow-2xl border border-blue-50 flex items-center gap-4">
+  <p className="text-4xl font-black text-primary leading-none">30</p>
+  <div className="flex flex-col leading-tight">
+    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Años de</p>
+    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Excelencia</p>
+  </div>
+</div>
             </div>
           </motion.div>
 
