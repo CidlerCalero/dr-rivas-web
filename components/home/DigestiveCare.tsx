@@ -128,12 +128,16 @@ const DigestiveCare = () => {
                 </Link>
               </div>
 
-              {/* RECURSOS ADICIONALES - PROTAGONISMO MEJORADO */}
+             {/* RECURSOS ADICIONALES - PROTAGONISMO MEJORADO */}
               {/* Ahora es un grid de 2 tarjetas interactivas */}
               <div className="mt-8 pt-6 border-t border-gray-200/60 grid grid-cols-2 gap-4">
                 
-                {/* Botón Recurso 1: Guía */}
-                <Link href="#" className="group flex items-center gap-4 p-3 rounded-2xl bg-purple-50/50 border border-purple-100 hover:bg-white hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+                {/* Botón Recurso 1: Guía (Descarga PDF) */}
+                <a 
+                  href="/docs/guia-salud-digestiva.pdf" 
+                  download="Guia_Salud_Digestiva_Dr_Rivas.pdf"
+                  className="group flex items-center gap-4 p-3 rounded-2xl bg-purple-50/50 border border-purple-100 hover:bg-white hover:shadow-md hover:border-purple-200 transition-all cursor-pointer"
+                >
                   <div className="bg-purple-100 p-3 rounded-xl text-purple-600 group-hover:scale-110 transition-transform shadow-sm">
                     <FileText size={24} />
                   </div>
@@ -143,10 +147,15 @@ const DigestiveCare = () => {
                       Guía de Salud
                     </span>
                   </div>
-                </Link>
+                </a>
 
-                {/* Botón Recurso 2: Video */}
-                <Link href="#" className="group flex items-center gap-4 p-3 rounded-2xl bg-blue-50/50 border border-blue-100 hover:bg-white hover:shadow-md hover:border-blue-200 transition-all cursor-pointer">
+                {/* Botón Recurso 2: Video (YouTube) */}
+                <a 
+                  href="https://www.youtube.com/@TuCanalEjemplo" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 p-3 rounded-2xl bg-blue-50/50 border border-blue-100 hover:bg-white hover:shadow-md hover:border-blue-200 transition-all cursor-pointer"
+                >
                   <div className="bg-blue-100 p-3 rounded-xl text-blue-600 group-hover:scale-110 transition-transform shadow-sm">
                     <PlayCircle size={24} />
                   </div>
@@ -156,7 +165,7 @@ const DigestiveCare = () => {
                       Consejos Rápidos
                     </span>
                   </div>
-                </Link>
+                </a>
 
               </div>
 
