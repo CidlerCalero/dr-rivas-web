@@ -15,7 +15,7 @@ interface Pillar {
 const pillars: Pillar[] = [
   {
     title: "Tecnología de Punta",
-    desc: "Contamos con equipos endoscópicos de última generación (2024) para diagnósticos rápidos y sin molestias.",
+    desc: "Contamos con equipos endoscópicos de última generación para diagnósticos rápidos y sin molestias.",
     icon: Microscope,
   },
   {

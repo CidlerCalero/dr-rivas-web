@@ -148,18 +148,20 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* COL 4: LICENCIA */}
+           {/* COL 4: LICENCIA */}
             <div className="bg-white/10 backdrop-blur-sm p-8 rounded-3xl border border-white/20">
-              <div className="flex items-center gap-3 mb-4">
-                <ShieldCheck className="text-accent" size={24} />
-                <h4 className="text-lg font-black">Garantía</h4>
+              <div className="flex items-start gap-3 mb-4">
+                <ShieldCheck className="text-accent flex-shrink-0 mt-1" size={24} />
+                <h4 className="text-base lg:text-lg font-black leading-snug">
+                  Consejo Superior<br />de Salud Pública
+                </h4>
               </div>
               <div className="bg-white/10 rounded-2xl p-4 text-center border border-accent/30">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Award className="text-accent" size={20} />
                   <p className="text-accent font-black text-sm uppercase">Licencia</p>
                 </div>
-                <p className="text-4xl font-black text-white">#91</p>
+                <p className="text-4xl font-black text-white">No. 91</p>
               </div>
             </div>
           </div>

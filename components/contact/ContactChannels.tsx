@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import { Phone, MessageCircle, Navigation, Mail, Clock, MapPin } from "lucide-react";
+import Image from "next/image"; // Importamos Image
+import { Phone, MessageCircle, Mail, Clock, MapPin } from "lucide-react";
 
 const channels = [
   { 
@@ -8,7 +9,16 @@ const channels = [
     info: "7327-1322", 
     subtitle: "Respuesta inmediata",
     link: "https://wa.me/50373271322?text=Hola,%20deseo%20agendar%20una%20consulta", 
-    icon: <MessageCircle size={32} />, 
+    icon: (
+      <div className="relative w-9 h-9">
+        <Image 
+          src="/images/Whatsapp.svg" 
+          alt="Waze" 
+          fill 
+          className="object-contain" // Si quieres que sea blanco puro agrega: brightness-0 invert
+        />
+      </div>
+    ), 
     color: "bg-success",
     gradient: "from-success to-success/80"
   },
@@ -25,8 +35,18 @@ const channels = [
     title: "Waze", 
     info: "Cómo Llegar", 
     subtitle: "Navegación GPS",
-    link: "https://waze.com/ul?ll=13.71,-89.20815&navigate=yes", 
-    icon: <Navigation size={32} />, 
+    link: "https://ul.waze.com/ul?place=ChIJUyxwy4IxY48R1adJT5dynSM&ll=13.71136360%2C-89.21036910&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location", 
+    // CAMBIO AQUÍ: Usamos Image con un contenedor para mantener proporción
+    icon: (
+      <div className="relative w-9 h-9">
+        <Image 
+          src="/images/waze-icon.svg" 
+          alt="Waze" 
+          fill 
+          className="object-contain" // Si quieres que sea blanco puro agrega: brightness-0 invert
+        />
+      </div>
+    ), 
     color: "bg-blue-400",
     gradient: "from-blue-400 to-cyan-400"
   },

@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, Phone, MessageCircle, Facebook, Instagram, Youtube, MapPin, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,6 +51,8 @@ const Navbar = () => {
       disabled: true
     }
   ];
+
+  const isActive = (href: string) => pathname === href;
 
   return (
     <header 
@@ -138,10 +142,27 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-2 text-[13px] font-black text-primary/70 hover:text-primary transition-all relative group uppercase tracking-wide"
+                  className={`px-4 py-2 text-[13px] font-black transition-all relative group uppercase tracking-wide ${
+                    isActive(link.href) 
+                      ? "text-accent" 
+                      : "text-primary/70 hover:text-primary"
+                  }`}
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-accent rounded-full group-hover:w-5 transition-all" />
+                  <span 
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-1 bg-accent rounded-full transition-all ${
+                      isActive(link.href) 
+                        ? "w-5" 
+                        : "w-0 group-hover:w-5"
+                    }`} 
+                  />
+                  {isActive(link.href) && (
+                    <motion.span
+                      layoutId="activeIndicator"
+                      className="absolute -top-1 -right-1 w-2 h-2 bg-accent rounded-full"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
               ))}
 
@@ -156,7 +177,7 @@ const Navbar = () => {
               </a>
 
               <a 
-                href="https://www.waze.com/ul?ll=13.711364,-89.210369&navigate=yes"
+                href="https://ul.waze.com/ul?place=ChIJUyxwy4IxY48R1adJT5dynSM&ll=13.71136360%2C-89.21036910&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-black text-xs uppercase tracking-widest hover:bg-accent hover:scale-105 transition-all shadow-lg shadow-primary/30"
@@ -192,8 +213,15 @@ const Navbar = () => {
                     key={link.href} 
                     href={link.href} 
                     onClick={() => setIsOpen(false)} 
-                    className="block text-xl font-black text-primary hover:text-accent transition-colors"
+                    className={`block text-xl font-black transition-colors relative pl-4 ${
+                      isActive(link.href)
+                        ? "text-accent"
+                        : "text-primary hover:text-accent"
+                    }`}
                   >
+                    {isActive(link.href) && (
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent rounded-full" />
+                    )}
                     {link.label}
                   </Link>
                 ))}

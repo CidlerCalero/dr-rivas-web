@@ -6,7 +6,7 @@ const reasons = [
   "Atención personalizada y sin prisas.",
   "Ubicación céntrica y segura en San Salvador.",
   "Staff altamente capacitado y con calidad humana.",
-  "Resultados de exámenes e informes el mismo día.",
+  "Estudios y exámenes de acuerdo a tu necesidad.",
   "Seguimiento constante post-procedimiento."
 ];
 

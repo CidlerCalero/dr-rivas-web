@@ -1,14 +1,8 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { MessageCircle, MapPin, Clock, ArrowRight } from "lucide-react";
-
-// 1. MOVEMOS EL COMPONENTE FUERA (Regla de oro de React)
-const WazeLogo = () => (
-  <svg width="20" height="20" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M437.5 281.3c0 74.4-60.3 134.7-134.7 134.7h-36.4c-5.8 19.3-23.7 33.3-44.9 33.3-25.8 0-46.7-21-46.7-46.7 0-3.3.4-6.6 1.1-9.7h-11c-65.7 0-119-53.3-119-119 0-4.6.4-9.2 1.1-13.7C24.4 246.6 8 221.7 8 194.2 8 152 42.4 117.7 84.7 117.7c11 0 21.4 2.3 30.9 6.5C146.4 86.6 195.4 64 250.2 64c92.8 0 168 75.2 168 168 0 17.1-2.5 33.6-7.3 49.3 16.5 0 26.6 0 26.6 0zm-187.3 13.7c15.1 0 27.4-12.3 27.4-27.4 0-15.1-12.3-27.4-27.4-27.4-15.1 0-27.4 12.3-27.4 27.4s12.3 27.4 27.4 27.4zm105.1 0c15.1 0 27.4-12.3 27.4-27.4 0-15.1-12.3-27.4-27.4-27.4s-27.4 12.3-27.4 27.4 12.3 27.4 27.4 27.4z" />
-  </svg>
-);
 
 const ContactMap = () => {
   return (
@@ -40,7 +34,7 @@ const ContactMap = () => {
             className="order-1 lg:order-2 h-[350px] lg:h-[550px] rounded-[2.5rem] lg:rounded-[3.5rem] overflow-hidden shadow-2xl border-8 border-white sticky top-24"
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.132849504443!2d-89.20815!3d13.71!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6330960a349c25%3A0xc3c945143a59577!2sCalle%20Gabriela%20Mistral%20516%2C%20San%20Salvador!5e0!3m2!1ses!2ssv!4v1700000000000!5m2!1ses!2ssv"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3876.1169829453793!2d-89.210369!3d13.711364!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f633182cb702c53%3A0x239d72974f49a7d5!2sUnidad%20de%20Gastroenterolog%C3%ADa%20Rivas%20Torres!5e0!3m2!1ses-419!2sus!4v1768235648022!5m2!1ses-419!2sus"
               className="w-full h-full grayscale-[0.2] contrast-[1.1]"
               style={{ border: 0 }}
               allowFullScreen={true}
@@ -68,12 +62,19 @@ const ContactMap = () => {
                 </p>
                 <div className="flex flex-wrap gap-4 pt-4">
                    <a 
-                    href="https://waze.com/ul?ll=13.711364,-89.210369&navigate=yes" 
+                    href="https://ul.waze.com/ul?place=ChIJUyxwy4IxY48R1adJT5dynSM&ll=13.71136360%2C-89.21036910&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 bg-[#33ccff] text-white px-8 py-4 rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-lg shadow-blue-200"
                    >
-                     <WazeLogo /> Cómo llegar con Waze
+                     <Image 
+                       src="/images/waze-icon.svg"
+                       alt="Waze"
+                       width={20}
+                       height={20}
+                       className="w-5 h-5"
+                     />
+                     Cómo llegar con Waze
                    </a>
                 </div>
               </div>

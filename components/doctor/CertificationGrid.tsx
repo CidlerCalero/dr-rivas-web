@@ -58,7 +58,7 @@ const certifications = [
 
 const stats = [
   { number: "+10", label: "Certificaciones", icon: <Award size={24} /> },
-  { number: "5", label: "Países", icon: <MapPin size={24} /> },
+  { number: "3", label: "Países", icon: <MapPin size={24} /> },
   { number: "25+", label: "Años Actualizándose", icon: <Calendar size={24} /> }
 ];
 

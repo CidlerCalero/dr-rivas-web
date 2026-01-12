@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const stats = [
   { label: "Pacientes Atendidos", value: "+10,000" },
-  { label: "Años de Experiencia", value: "30+" },
-  { label: "Años en Hosp. Rosales", value: "25" },
+  { label: "Años de Experiencia", value: "+30" },
+  { label: "En Hospital Rosales", value: "+25 Años" },
   { label: "Certificaciones", value: "+10" },
 ];
 

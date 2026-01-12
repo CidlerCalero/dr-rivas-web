@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, MapPin, Award, Users, ArrowRight, Calendar } from "lucide-react";
+import { Phone, Award, Users, ArrowRight, Calendar, Facebook, Instagram, Youtube } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -77,11 +77,29 @@ const Hero = () => {
             </div>
 
             {/* Links sociales - Solo desktop */}
-            <div className="hidden lg:flex items-center gap-4 pt-4 text-sm text-gray-500">
-              <span className="font-semibold">Síguenos:</span>
-              <a href="https://www.facebook.com/umgqes" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Facebook</a>
-              <a href="https://www.instagram.com/rener.rivas" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Instagram</a>
-              <a href="#" className="opacity-40 cursor-not-allowed">YouTube</a>
+            <div className="hidden lg:flex items-center gap-4 pt-4">
+              <span className="font-semibold text-sm text-gray-500">Síguenos:</span>
+              <a 
+                href="https://www.facebook.com/umgqes" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-primary/10 p-2 rounded-lg hover:bg-primary/20 transition-all hover:scale-110"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5 text-primary" />
+              </a>
+              <a 
+                href="https://www.instagram.com/rener.rivas" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-pink-50 p-2 rounded-lg hover:bg-pink-100 transition-all hover:scale-110"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5 text-pink-600" />
+              </a>
+              <div className="bg-gray-100 p-2 rounded-lg opacity-40 cursor-not-allowed" aria-label="YouTube próximamente">
+                <Youtube className="w-5 h-5 text-gray-400" />
+              </div>
             </div>
           </motion.div>
 
@@ -95,14 +113,14 @@ const Hero = () => {
             {/* Contenedor de la imagen principal */}
             <div className="relative z-0 h-full">
               <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 p-1.5 lg:p-2 h-full">
-              <Image
-  src="/images/doctor-hero.webp"
-  alt="Dr. René Ricardo Rivas Contreras - Gastroenterólogo"
-  width={600}
-  height={700}
-  className="w-full h-full object-cover rounded-2xl object-[50%_25%] lg:object-[50%_30%]"  // ✅ Móvil: al top; Desktop: baja un 20%
-  priority
-/>
+                <Image
+                  src="/images/doctor-hero.webp"
+                  alt="Dr. René Ricardo Rivas Contreras - Gastroenterólogo"
+                  width={600}
+                  height={700}
+                  className="w-full h-full object-cover rounded-2xl object-[50%_25%] lg:object-[50%_30%]"
+                  priority
+                />
               </div>
             </div>
 
@@ -123,25 +141,31 @@ const Hero = () => {
                   <Phone className="text-success w-5 h-5 lg:w-6 lg:h-6" />
                 </div>
                 <div className="hidden lg:block">
-                  <p className="text-xs text-gray-500 font-medium">Llámanos</p>
+                  <p className="text-xs text-gray-500 font-medium">Contáctanos</p>
                   <p className="text-sm font-bold text-darktext">7327-1322</p>
                 </div>
               </div>
             </motion.a>
 
-            {/* Badge: Ubicación (centro derecha) */}
+            {/* Badge: Ubicación con logo de Waze (centro derecha) */}
             <motion.a
-              href="https://www.waze.com/ul?ll=13.711364,-89.210369&navigate=yes"
+              href="https://ul.waze.com/ul?place=ChIJUyxwy4IxY48R1adJT5dynSM&ll=13.71136360%2C-89.21036910&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.7 }}
-              className="absolute top-1/2 -translate-y-1/2 -right-2 lg:-right-4 z-20 bg-white rounded-xl lg:rounded-2xl p-3 lg:p-4 shadow-xl lg:shadow-2xl hover:shadow-accent/30 hover:scale-110 transition-all duration-300 group cursor-pointer"
+              className="absolute top-1/2 -translate-y-1/2 -right-2 lg:-right-4 z-20 bg-white rounded-xl lg:rounded-2xl p-3 lg:p-4 shadow-xl lg:shadow-2xl hover:shadow-[#33CCFF]/30 hover:scale-110 transition-all duration-300 group cursor-pointer"
             >
               <div className="flex items-center gap-2 lg:gap-3">
-                <div className="bg-accent/10 p-2 lg:p-3 rounded-lg lg:rounded-xl group-hover:bg-accent/20 transition-colors">
-                  <MapPin className="text-accent w-5 h-5 lg:w-6 lg:h-6" />
+                <div className="bg-[#33CCFF]/10 p-2 lg:p-3 rounded-lg lg:rounded-xl group-hover:bg-[#33CCFF]/20 transition-colors">
+                  <Image
+                    src="/images/waze-icon.svg"
+                    alt="Waze"
+                    width={24}
+                    height={24}
+                    className="w-5 h-5 lg:w-6 lg:h-6"
+                  />
                 </div>
                 <div className="hidden lg:block">
                   <p className="text-xs text-gray-500 font-medium">Cómo llegar</p>
@@ -162,8 +186,8 @@ const Hero = () => {
                   <Award className="text-primary w-4 h-4 lg:w-5 lg:h-5" />
                 </div>
                 <div>
-                  <p className="text-xl lg:text-2xl font-black text-primary">25+</p>
-                  <p className="text-[10px] lg:text-xs text-gray-600 font-medium whitespace-nowrap">Años H. Rosales</p>
+                  <p className="text-xl lg:text-2xl font-black text-primary">+25 Años</p>
+                  <p className="text-[10px] lg:text-xs text-gray-600 font-medium whitespace-nowrap">Hospital Rosales</p>
                 </div>
               </div>
             </motion.div>
