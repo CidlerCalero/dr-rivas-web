@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image"; // Importamos Image
-import { Phone, MessageCircle, Mail, Clock, MapPin } from "lucide-react";
+import { Phone, Mail, Clock, MapPin } from "lucide-react";
 
 const channels = [
   { 
@@ -12,7 +12,7 @@ const channels = [
     icon: (
       <div className="relative w-9 h-9">
         <Image 
-          src="/images/Whatsapp.svg" 
+          src="/images/WhatsApp.svg" 
           alt="WhatsApp" 
           fill 
           className="object-contain" // Si quieres que sea blanco puro agrega: brightness-0 invert
