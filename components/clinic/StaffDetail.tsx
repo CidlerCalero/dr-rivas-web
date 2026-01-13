@@ -28,7 +28,7 @@ const team = [
     role: "Licenciado en Anestesia", 
     image: "/images/staff-sergio.webp",
     badge: "Experto en Sedación",
-    experience: "12+ años",
+    experience: "30+ años",
     description: "Garantiza tu comodidad y seguridad durante los procedimientos."
   },
   
