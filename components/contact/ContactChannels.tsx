@@ -13,7 +13,7 @@ const channels = [
       <div className="relative w-9 h-9">
         <Image 
           src="/images/Whatsapp.svg" 
-          alt="Waze" 
+          alt="WhatsApp" 
           fill 
           className="object-contain" // Si quieres que sea blanco puro agrega: brightness-0 invert
         />
