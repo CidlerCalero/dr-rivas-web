@@ -8,7 +8,7 @@ const achievements = [
     icon: <Users size={24} />,
     number: "200+",
     label: "Residentes Formados",
-    description: "en los últimos 25 años"
+    description: "de 1996 a 2025 en Hospital Nacional Rosales"
   },
   {
     icon: <BookOpen size={24} />,
