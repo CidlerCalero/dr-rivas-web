@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Award, Heart, Users } from "lucide-react";
+import { Award, Heart, Users, CheckCircle2 } from "lucide-react";
 
 const team = [
   // --- FILA SUPERIOR (3 MIEMBROS) ---
@@ -21,7 +21,12 @@ const team = [
     image: "/images/staff-marta.webp",
     badge: "Líder del Equipo",
     experience: "15+ años",
-    description: "Experta en procedimientos endoscópicos y cuidado especializado."
+    description: "Experta en procedimientos endoscópicos y cuidado especializado.",
+    skills: [
+      // Agrega aquí los skills de Marta cuando los tengas
+      // "Skill 1",
+      // "Skill 2",
+    ]
   },
   { 
     name: "Lic. Sergio Osorio", 
@@ -29,14 +34,23 @@ const team = [
     image: "/images/staff-sergio.webp",
     badge: "Experto en Sedación",
     experience: "30+ años",
-    description: "Garantiza tu comodidad y seguridad durante los procedimientos."
+    description: "Garantiza tu comodidad y seguridad durante los procedimientos.",
+    skills: [
+      "Anestesia Obstétrica",
+      "Anestesia General",
+      "Sedoanalgesia",
+      "Diplomado en Cuidados Respiratorios",
+      "Diplomado en Docencia",
+      "Curso de Terapia Respiratoria (2 años)",
+      "Diplomado de Urgencias Obstétricas"
+    ]
   },
   
   // --- FILA INFERIOR (4 MIEMBROS) ---
   { 
     name: "Srita. Wendy Ramírez", 
     role: "Asistente de Endoscopía", 
-    image: "/images/staff-wendy.webp", // Asegúrate de tener esta imagen
+    image: "/images/staff-wendy.webp",
     badge: "Soporte Clínico",
     description: "Asistencia técnica precisa para garantizar el éxito de cada estudio."
   },
@@ -138,14 +152,10 @@ const StaffDetail = () => {
           </motion.div>
         </div>
 
-        {/* GRID DEL EQUIPO - Lógica de Layout Mejorada */}
-        {/* Mobile: 1 col | Tablet: 2 cols | Desktop: 12 cols (para control total) */}
+        {/* GRID DEL EQUIPO */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 justify-center">
           
           {team.map((member, i) => {
-            // Lógica para distribuir el layout en Desktop:
-            // Indices 0,1,2 (Primera fila) -> col-span-4 (12/4 = 3 items)
-            // Indices 3,4,5,6 (Segunda fila) -> col-span-3 (12/3 = 4 items)
             const desktopColSpan = i < 3 ? "lg:col-span-4" : "lg:col-span-3";
 
             return (
@@ -157,7 +167,6 @@ const StaffDetail = () => {
                 transition={{ delay: i * 0.1 }}
                 onMouseEnter={() => setFlipped(i)}
                 onMouseLeave={() => setFlipped(null)}
-                // Aplicamos la clase dinámica aquí
                 className={`group perspective-1000 ${desktopColSpan}`}
               >
                 <div className={`
@@ -165,7 +174,7 @@ const StaffDetail = () => {
                   ${member.highlight ? 'ring-2 ring-primary ring-offset-4' : ''}
                 `}>
                   
-                  {/* BADGE DESTACADO (solo para el doctor) */}
+                  {/* BADGE DESTACADO */}
                   {member.highlight && (
                     <div className="absolute top-0 left-0 right-0 bg-primary text-white text-center py-2 text-xs font-bold uppercase tracking-widest z-10">
                       ⭐ Director Médico
@@ -183,22 +192,47 @@ const StaffDetail = () => {
                     
                     {/* OVERLAY CON INFO AL HOVER */}
                     <div className={`
-                      absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/60
+                      absolute inset-0 bg-gradient-to-t from-primary via-primary/95 to-primary/90
                       transition-opacity duration-500
                       ${flipped === i ? 'opacity-95' : 'opacity-0'}
-                      flex flex-col items-center justify-center p-6 text-center text-white
+                      flex flex-col items-center justify-center p-6 text-white overflow-y-auto
                     `}>
-                      <p className="text-sm leading-relaxed mb-4 font-medium">
-                        {member.description}
-                      </p>
-                      {member.experience && (
-                        <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-                          <p className="text-xs font-bold">{member.experience} de experiencia</p>
-                        </div>
-                      )}
+                      <div className="w-full max-h-full overflow-y-auto custom-scrollbar">
+                        {/* Descripción */}
+                        <p className="text-sm leading-relaxed mb-4 font-medium text-center">
+                          {member.description}
+                        </p>
+
+                        {/* Skills (solo si existen) */}
+                        {member.skills && member.skills.length > 0 && (
+                          <div className="mt-4 w-full">
+                            <h4 className="text-xs font-black uppercase tracking-wider mb-3 text-accent text-center">
+                              Especialidades
+                            </h4>
+                            <ul className="space-y-2">
+                              {member.skills.map((skill, idx) => (
+                                <li 
+                                  key={idx}
+                                  className="flex items-start gap-2 text-xs bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20"
+                                >
+                                  <CheckCircle2 size={14} className="text-accent flex-shrink-0 mt-0.5" />
+                                  <span className="leading-tight">{skill}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Experiencia */}
+                        {member.experience && (
+                          <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mt-4">
+                            <p className="text-xs font-bold text-center">{member.experience} de experiencia</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    {/* BADGE DE ROL (visible siempre en la parte inferior de la imagen) */}
+                    {/* BADGE DE ROL */}
                     {flipped !== i && (
                       <div className="absolute bottom-4 left-4 right-4">
                         <span className="inline-block bg-white/90 backdrop-blur-md text-primary text-xs font-bold px-3 py-1.5 rounded-full shadow-sm border border-gray-100">
@@ -249,6 +283,20 @@ const StaffDetail = () => {
       <style jsx>{`
         .perspective-1000 {
           perspective: 1000px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.5);
         }
       `}</style>
     </section>

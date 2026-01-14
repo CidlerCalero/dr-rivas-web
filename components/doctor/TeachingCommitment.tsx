@@ -6,7 +6,7 @@ import { GraduationCap, Users, Heart, BookOpen, Award } from "lucide-react";
 const achievements = [
   {
     icon: <Users size={24} />,
-    number: "100+",
+    number: "200+",
     label: "Residentes Formados",
     description: "en los últimos 25 años"
   },
@@ -72,7 +72,7 @@ const TeachingCommitment = () => {
 
             {/* Descripción */}
             <p className="text-blue-100 text-lg leading-relaxed">
-              Durante más de 25 años, el Dr. Rivas Contreras ha dedicado parte de su carrera 
+              A lo largo de 27 años, el Dr. Rivas Contreras ha dedicado parte de su carrera 
               a la formación <span className="font-bold text-white">Ad-Honorem</span> de residentes 
               de Medicina Interna en el Hospital Nacional Rosales, transmitiendo su vasto conocimiento 
               y experiencia a las futuras generaciones de médicos salvadoreños.

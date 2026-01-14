@@ -4,21 +4,21 @@ import { GraduationCap, Briefcase, Calendar, MapPin, Award, TrendingUp } from "l
 
 const timeline = [
   {
-    year: "1993",
+    year: "1991",
     title: "Doctor en Medicina",
     institution: "Universidad Nacional de El Salvador",
     icon: <GraduationCap size={20} />,
     color: "bg-primary"
   },
   {
-    year: "1993-1996",
+    year: "1991-1993",
     title: "Especialidad en Medicina Interna",
     institution: "Hospital Nacional Rosales",
     icon: <Briefcase size={20} />,
     color: "bg-secondary"
   },
   {
-    year: "1996-1999",
+    year: "1993-1995",
     title: "Sub-Especialidad en Gastroenterología",
     institution: "Hospital Nacional de México",
     location: "Ciudad de México",
@@ -26,14 +26,14 @@ const timeline = [
     color: "bg-accent"
   },
   {
-    year: "1995-2002",
-    title: "Agregado ISSS",
+    year: "1995-2001",
+    title: "Staff del ISSS Gastroenterología",
     institution: "Servicio de Gastroenterología del ISSS",
     icon: <Briefcase size={20} />,
     color: "bg-success"
   },
   {
-    year: "1998-Presente",
+    year: "1996-2025",
     title: "Staff Hospital Rosales",
     institution: "Medicina Interna - Hospital Nacional Rosales",
     highlight: true,
@@ -125,11 +125,7 @@ const AcademicTrajectory = () => {
                           <span className="text-accent font-black text-sm bg-accent/10 px-3 py-1 rounded-full">
                             {item.year}
                           </span>
-                          {item.highlight && (
-                            <span className="text-xs bg-primary text-white px-3 py-1 rounded-full font-bold">
-                              Actualmente
-                            </span>
-                          )}
+                         
                         </div>
                         <h3 className="text-xl font-black text-primary mb-1">
                           {item.title}
