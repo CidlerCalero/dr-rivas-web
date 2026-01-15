@@ -20,12 +20,16 @@ const team = [
     role: "Enfermera Jefe de Endoscopía", 
     image: "/images/staff-marta.webp",
     badge: "Líder del Equipo",
-    experience: "15+ años",
-    description: "Experta en procedimientos endoscópicos y cuidado especializado.",
+    experience: "20+ años",
+    description: "Jefe de Enfermería y Administración de la unidad desde 2013.",
     skills: [
-      // Agrega aquí los skills de Marta cuando los tengas
-      // "Skill 1",
-      // "Skill 2",
+      "Enfermería en Endoscopía Digestiva",
+      "Cuidados Intermedios e Intensivos",
+      "Enfermería Comunitaria",
+      "Diplomado en Investigación",
+      "Diplomado Internacional TECH Global University",
+      "Hospital de Diagnóstico (2006-2013)",
+      "Administración de Unidades Médicas"
     ]
   },
   { 
@@ -79,6 +83,11 @@ const team = [
 
 const StaffDetail = () => {
   const [flipped, setFlipped] = useState<number | null>(null);
+
+  // Función para manejar el toggle en móvil
+  const handleMobileToggle = (index: number) => {
+    setFlipped(flipped === index ? null : index);
+  };
 
   return (
     <section className="py-24 bg-gradient-to-b from-white to-neutralbg relative overflow-hidden">
@@ -167,7 +176,8 @@ const StaffDetail = () => {
                 transition={{ delay: i * 0.1 }}
                 onMouseEnter={() => setFlipped(i)}
                 onMouseLeave={() => setFlipped(null)}
-                className={`group perspective-1000 ${desktopColSpan}`}
+                onClick={() => handleMobileToggle(i)}
+                className={`group perspective-1000 ${desktopColSpan} cursor-pointer lg:cursor-default`}
               >
                 <div className={`
                   relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col
@@ -190,14 +200,26 @@ const StaffDetail = () => {
                       className="object-cover object-top transition-all duration-700 group-hover:scale-110"
                     />
                     
-                    {/* OVERLAY CON INFO AL HOVER */}
+                    {/* OVERLAY CON INFO AL HOVER / TOUCH */}
                     <div className={`
                       absolute inset-0 bg-gradient-to-t from-primary via-primary/95 to-primary/90
                       transition-opacity duration-500
-                      ${flipped === i ? 'opacity-95' : 'opacity-0'}
+                      ${flipped === i ? 'opacity-95' : 'opacity-0 pointer-events-none'}
                       flex flex-col items-center justify-center p-6 text-white overflow-y-auto
                     `}>
                       <div className="w-full max-h-full overflow-y-auto custom-scrollbar">
+                        {/* Botón cerrar (solo móvil) */}
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setFlipped(null);
+                          }}
+                          className="lg:hidden absolute top-4 right-4 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all z-20"
+                          aria-label="Cerrar información"
+                        >
+                          ✕
+                        </button>
+
                         {/* Descripción */}
                         <p className="text-sm leading-relaxed mb-4 font-medium text-center">
                           {member.description}
@@ -232,12 +254,18 @@ const StaffDetail = () => {
                       </div>
                     </div>
 
-                    {/* BADGE DE ROL */}
+                    {/* BADGE DE ROL + INDICADOR TÁCTIL */}
                     {flipped !== i && (
-                      <div className="absolute bottom-4 left-4 right-4">
+                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-2">
                         <span className="inline-block bg-white/90 backdrop-blur-md text-primary text-xs font-bold px-3 py-1.5 rounded-full shadow-sm border border-gray-100">
                           {member.badge}
                         </span>
+                        {/* Indicador de toque (solo si tiene skills o descripción) */}
+                        {(member.skills && member.skills.length > 0) && (
+                          <span className="lg:hidden bg-white/90 backdrop-blur-md text-primary px-2 py-1.5 rounded-full shadow-sm border border-gray-100 text-[10px] font-bold">
+                            Toca para ver más
+                          </span>
+                        )}
                       </div>
                     )}
                   </div>
