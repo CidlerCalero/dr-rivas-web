@@ -8,7 +8,15 @@ const team = [
   // --- FILA SUPERIOR (3 MIEMBROS) ---
   { 
     name: "Dr. René Rivas Contreras", 
-    role: "Gastroenterólogo e Internista", 
+    // CAMBIO AQUÍ: Uso de fragmento JSX para distribuir el texto en dos líneas estéticas
+    role: (
+      <>
+        <span className="block mb-1">Especialidad Medicina Interna</span>
+        <span className="block text-[0.65rem] sm:text-[0.7rem] leading-tight opacity-90">
+          Sub Especialidad Gastroenterología y Endoscopía Digestiva
+        </span>
+      </>
+    ), 
     image: "/images/doctor-rivas.webp",
     badge: "Director Médico",
     experience: "30+ años",

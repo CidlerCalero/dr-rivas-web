@@ -5,16 +5,25 @@ import { useState, useRef } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const mainGallery = [
+  // Fotos originales 1-4 (sin cambios)
   { src: "/images/gal-1.jpg", text: "Dr. Rivas Contreras" },
   { src: "/images/gal-2.webp", text: "Nuestro Staff" },
   { src: "/images/gal-3.webp", text: "Áreas Confortables" },
   { src: "/images/gal-4.jpg", text: "Salas Equipadas" },
-  { src: "/images/gal-5.webp", text: "Profesionalismo" },
-  { src: "/images/gal-6.webp", text: "Atención Especial" },
-  { src: "/images/gal-7.webp", text: "Trato Humano" },
-  { src: "/images/gal-8.webp", text: "Equipo Capaz" },
-  { src: "/images/gal-9.webp", text: "Fácil de Llegar" },
-  { src: "/images/gal-10.webp", text: "Te Cuidamos" },
+  
+  // Nuevas fotos 5-8
+  { src: "/images/gal-5.webp", text: "Recepción" },
+  { src: "/images/gal-6.webp", text: "Parqueo" },
+  { src: "/images/gal-7.webp", text: "Rampa para Silla de Ruedas" },
+  { src: "/images/gal-8.webp", text: "Contamos con Silla de Ruedas" },
+  
+  // Fotos antiguas que siguen (renumeradas)
+  { src: "/images/gal-9.webp", text: "Profesionalismo" },
+  { src: "/images/gal-10.webp", text: "Atención Especial" },
+  { src: "/images/gal-11.webp", text: "Trato Humano" },
+  { src: "/images/gal-12.webp", text: "Equipo Capaz" },
+  { src: "/images/gal-13.webp", text: "Fácil de Llegar" },
+  { src: "/images/gal-14.webp", text: "Te Cuidamos" },
 ];
 
 const ClinicGallery = () => {
