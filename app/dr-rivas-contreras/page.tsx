@@ -1,3 +1,17 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Trayectoria y Formación | Dr. René Ricardo Rivas Contreras",
+  description: "Conoce al Dr. Rivas Contreras, especialista formado en la UES y el Hospital Nacional de México, con más de 25 años de staff en el Hospital Rosales.",
+  keywords: ["Trayectoria Dr. Rivas Contreras", "Especialista Gastroenterología El Salvador", "Médico Hospital Rosales", "Gastroenterólogo UES"],
+  openGraph: {
+    title: "Trayectoria y Experiencia | Dr. René Rivas Contreras",
+    description: "Médico Gastroenterólogo e Internista con certificación internacional.",
+    url: "https://drrivascontrerasgastro.com/dr-rivas-contreras",
+    images: ["/images/doctor-hero.webp"],
+  },
+};
+
 import DrHeroProfile from "../../components/doctor/DrHeroProfile";
 import AcademicTrajectory from "../../components/doctor/AcademicTrajectory";
 import TeachingCommitment from "../../components/doctor/TeachingCommitment";
