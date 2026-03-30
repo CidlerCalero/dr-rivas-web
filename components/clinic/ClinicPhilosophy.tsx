@@ -48,48 +48,57 @@ const ClinicPhilosophy = () => {
             </div>
           </motion.div>
 
-          {/* LADO DERECHO: CERTIFICACIONES APILADAS */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-6"
-          >
-            {/* --- DIPLOMA CONADEM (horizontal, ratio ~4:3) --- */}
-            <div className="relative">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 text-center">
-                Especialidad · CONADEM
-              </p>
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border-4 border-neutralbg">
-                <Image
-                  src="/images/diploma-conadem.webp"
-                  alt="Diploma CONADEM – Gastroenterología"
-                  fill
-                  className="object-contain bg-white"
-                />
-              </div>
-            </div>
+        {/* LADO DERECHO: CERTIFICACIONES EN GRID */}
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  className="flex flex-col gap-4"
+>
+  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 text-center">
+    Certificaciones
+  </p>
 
-            {/* --- LICENCIA DE FUNCIONAMIENTO (vertical, ratio original 659/800) --- */}
-            <div className="relative">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 text-center">
-                Licencia de Funcionamiento
-              </p>
-              <div className="relative w-full max-w-[340px] mx-auto aspect-[659/800] rounded-2xl overflow-hidden shadow-xl border-4 border-neutralbg">
-                <Image
-                  src="/images/certificacion.webp"
-                  alt="Certificación Ministerio de Salud"
-                  fill
-                  className="object-contain bg-white"
-                />
-              </div>
-              {/* Badge decorativo */}
-              <div className="absolute -bottom-4 -right-2 md:-right-4 bg-accent text-white p-3 md:p-5 rounded-2xl shadow-xl font-bold text-center rotate-12 z-20">
-                <p className="text-lg md:text-xl italic">No. 91</p>
-                <p className="text-[8px] md:text-[10px] uppercase">Licencia de Funcionamiento</p>
-              </div>
-            </div>
-          </motion.div>
+  {/* Sub-grid: 2 columnas en desktop, 1 en móvil */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
+
+    {/* --- DIPLOMA CONADEM (horizontal 4:3) --- */}
+    <div className="flex flex-col gap-2">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 text-center">
+        Especialidad · CONADEM
+      </p>
+      <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden shadow-xl border-4 border-neutralbg">
+        <Image
+          src="/images/diploma-conadem.webp"
+          alt="Diploma CONADEM – Gastroenterología"
+          fill
+          className="object-contain bg-white"
+        />
+      </div>
+    </div>
+
+    {/* --- LICENCIA DE FUNCIONAMIENTO (vertical) --- */}
+    <div className="flex flex-col gap-2 relative">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 text-center">
+        Licencia de Funcionamiento
+      </p>
+      <div className="relative w-full aspect-659/800 rounded-2xl overflow-hidden shadow-xl border-4 border-neutralbg">
+        <Image
+          src="/images/certificacion.webp"
+          alt="Certificación Ministerio de Salud"
+          fill
+          className="object-contain bg-white"
+        />
+      </div>
+      {/* Badge decorativo */}
+      <div className="absolute -bottom-4 -right-2 bg-accent text-white p-3 rounded-2xl shadow-xl font-bold text-center rotate-12 z-20">
+        <p className="text-base italic">No. 91</p>
+        <p className="text-[8px] uppercase">Licencia de Funcionamiento</p>
+      </div>
+    </div>
+
+  </div>
+</motion.div>
 
         </div>
       </div>
@@ -99,7 +108,7 @@ const ClinicPhilosophy = () => {
         {selectedImg !== null && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[110] bg-primary/95 backdrop-blur-xl flex items-center justify-center p-4"
+            className="fixed inset-0 z-110 bg-primary/95 backdrop-blur-xl flex items-center justify-center p-4"
           >
             <button onClick={() => setSelectedImg(null)} className="absolute top-6 right-6 text-white hover:text-accent transition-colors z-20">
               <X size={32} />
