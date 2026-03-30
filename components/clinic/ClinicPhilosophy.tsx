@@ -15,11 +15,10 @@ const ClinicPhilosophy = () => {
   const [selectedImg, setSelectedImg] = useState<number | null>(null);
 
   return (
-    // Agregamos overflow-hidden aquí para evitar el scroll horizontal
     <section className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          
+
           {/* LADO IZQUIERDO: TEXTO Y MINI GALERÍA */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -28,15 +27,15 @@ const ClinicPhilosophy = () => {
           >
             <h2 className="text-4xl font-black text-primary mb-6">30 Años de Excelencia</h2>
             <p className="text-gray-600 text-lg mb-10 leading-relaxed">
-              Nuestra filosofía se centra en la transparencia y la seguridad del paciente. 
-              Cada rincón de nuestra clínica está diseñado para que su experiencia sea cómoda, 
+              Nuestra filosofía se centra en la transparencia y la seguridad del paciente.
+              Cada rincón de nuestra clínica está diseñado para que su experiencia sea cómoda,
               profesional y con resultados garantizados.
             </p>
 
             <div className="grid grid-cols-2 gap-4">
               {miniGallery.map((img, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   onClick={() => setSelectedImg(i)}
                   className="group relative h-40 rounded-3xl overflow-hidden cursor-zoom-in border-4 border-white shadow-md"
                 >
@@ -49,47 +48,68 @@ const ClinicPhilosophy = () => {
             </div>
           </motion.div>
 
-          {/* LADO DERECHO: CERTIFICACIÓN REAL */}
-          <motion.div 
-            // CAMBIO: Animamos desde abajo (y) en lugar de desde la derecha (x) para evitar overflow
+          {/* LADO DERECHO: CERTIFICACIONES APILADAS */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative flex justify-center"
+            className="flex flex-col gap-6"
           >
-            <div className="relative w-full max-w-[450px] aspect-[659/800] rounded-3xl overflow-hidden shadow-2xl border-8 border-neutralbg">
-              <Image 
-                src="/images/certificacion.webp" 
-                alt="Certificación Ministerio de Salud" 
-                fill 
-                className="object-contain bg-white"
-              />
+            {/* --- DIPLOMA CONADEM (horizontal, ratio ~4:3) --- */}
+            <div className="relative">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 text-center">
+                Especialidad · CONADEM
+              </p>
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border-4 border-neutralbg">
+                <Image
+                  src="/images/diploma-conadem.webp"
+                  alt="Diploma CONADEM – Gastroenterología"
+                  fill
+                  className="object-contain bg-white"
+                />
+              </div>
             </div>
-            {/* Badge decorativo: Ajustamos el margen derecho para móvil */}
-            <div className="absolute -bottom-6 -right-2 md:-right-6 bg-accent text-white p-4 md:p-6 rounded-3xl shadow-xl font-bold text-center rotate-12 z-20">
-              <p className="text-xl md:text-2xl italic">No. 91</p>
-              <p className="text-[8px] md:text-[10px] uppercase">Licencia de Funcionamiento</p>
+
+            {/* --- LICENCIA DE FUNCIONAMIENTO (vertical, ratio original 659/800) --- */}
+            <div className="relative">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 text-center">
+                Licencia de Funcionamiento
+              </p>
+              <div className="relative w-full max-w-[340px] mx-auto aspect-[659/800] rounded-2xl overflow-hidden shadow-xl border-4 border-neutralbg">
+                <Image
+                  src="/images/certificacion.webp"
+                  alt="Certificación Ministerio de Salud"
+                  fill
+                  className="object-contain bg-white"
+                />
+              </div>
+              {/* Badge decorativo */}
+              <div className="absolute -bottom-4 -right-2 md:-right-4 bg-accent text-white p-3 md:p-5 rounded-2xl shadow-xl font-bold text-center rotate-12 z-20">
+                <p className="text-lg md:text-xl italic">No. 91</p>
+                <p className="text-[8px] md:text-[10px] uppercase">Licencia de Funcionamiento</p>
+              </div>
             </div>
           </motion.div>
+
         </div>
       </div>
 
-      {/* VISOR DE IMÁGENES (LIGHTBOX) */}
+      {/* LIGHTBOX */}
       <AnimatePresence>
         {selectedImg !== null && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 z-[110] bg-primary/95 backdrop-blur-xl flex items-center justify-center p-4"
           >
             <button onClick={() => setSelectedImg(null)} className="absolute top-6 right-6 text-white hover:text-accent transition-colors z-20">
               <X size={32} />
             </button>
-            
+
             <div className="relative w-full max-w-5xl aspect-video">
-              <Image 
-                src={miniGallery[selectedImg].src} 
-                alt={miniGallery[selectedImg].title} 
-                fill className="object-contain" 
+              <Image
+                src={miniGallery[selectedImg].src}
+                alt={miniGallery[selectedImg].title}
+                fill className="object-contain"
               />
               <p className="absolute -bottom-10 left-0 right-0 text-center text-white text-lg font-bold">
                 {miniGallery[selectedImg].title}
