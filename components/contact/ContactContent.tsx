@@ -52,7 +52,7 @@ export default function ContactContent() {
                    <Clock className="text-accent" size={24} />
                    <div>
                      <p className="text-[10px] uppercase font-black tracking-widest text-accent">Disponibilidad</p>
-                     <p className="font-bold text-lg">Lunes a Sábado</p>
+                     <p className="font-bold text-lg">Lunes a Viernes</p>
                    </div>
                 </div>
               </motion.div>

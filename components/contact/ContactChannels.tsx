@@ -157,7 +157,7 @@ const ContactChannels = () => {
               </div>
               <p className="text-gray-600 text-sm leading-relaxed">
                 <span className="font-semibold">Lunes a Viernes:</span> 9:00 AM - 5:00 PM<br/>
-                <span className="font-semibold">Sábado:</span> 9:00 AM - 12:00 M<br/>
+                <span className="text-gray-400 italic">Sábado: Cerrado</span>
                 <span className="text-gray-400 italic">Domingo: Cerrado</span>
               </p>
             </div>

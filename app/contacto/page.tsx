@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   keywords: ["Cita Gastroenterólogo El Salvador", "WhatsApp Dr. Rivas Contreras", "Dirección Dr. Rivas Contreras", "Gastroenterología Colonia Buenos Aires"],
   openGraph: {
     title: "Agendar Cita | Dr. René Rivas Contreras",
-    description: "Atención personalizada de Lunes a Sábado. Contáctanos por el medio de tu preferencia.",
+    description: "Atención personalizada de Lunes a Viernes. Contáctanos por el medio de tu preferencia.",
     url: "https://drrivascontrerasgastro.com/contacto",
     images: ["/images/contact-ubicacion.webp"],
   },

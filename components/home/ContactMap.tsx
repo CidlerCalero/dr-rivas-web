@@ -92,7 +92,7 @@ const ContactMap = () => {
                 <h4 className="font-black text-primary text-xl mb-3 tracking-tight">Horarios de Atención</h4>
                 <div className="space-y-1 text-gray-500 font-medium">
                   <p>Lunes a Viernes: <br /><span className="text-primary font-bold">9:00 AM - 5:00 PM</span></p>
-                  <p>Sábado: <br /><span className="text-primary font-bold">9:00 AM - 12:00 M</span></p>
+                  <p>Sábado y Domingo: <br /><span className="text-primary font-bold">Cerrado</span></p>
                 </div>
               </motion.div>
 

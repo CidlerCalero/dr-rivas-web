@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { MessageSquare, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 
 const ContactHero = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const[isOpen, setIsOpen] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const [timeMessage, setTimeMessage] = useState("");
 
@@ -16,48 +16,48 @@ const ContactHero = () => {
       const minutes = now.getMinutes();
       const currentTime = hours + minutes / 60;
 
-      // Horarios
+      // Horario Lunes a Viernes
       const weekdayOpen = 9; // 9:00 AM
       const weekdayClose = 17; // 5:00 PM
-      const saturdayOpen = 9; // 9:00 AM
-      const saturdayClose = 12; // 12:00 PM (mediodía)
 
       let open = false;
       let message = "";
       let time = "";
 
-      // Lunes a Viernes (1-5)
-      if (day >= 1 && day <= 5) {
+      // Lunes a Jueves (1-4)
+      if (day >= 1 && day <= 4) {
         if (currentTime >= weekdayOpen && currentTime < weekdayClose) {
           open = true;
           message = "Abierto ahora";
           time = "Cierra 5:00 PM";
         } else if (currentTime < weekdayOpen) {
           message = "Cerrado ahora";
-          time = "Abre 9:00 AM";
+          time = "Abre hoy a las 9:00 AM";
         } else {
           message = "Cerrado ahora";
-          time = "Abre mañana 9:00 AM";
+          time = "Abre mañana a las 9:00 AM";
         }
       }
-      // Sábado (6)
-      else if (day === 6) {
-        if (currentTime >= saturdayOpen && currentTime < saturdayClose) {
+      // Viernes (5) - Lógica especial para la tarde
+      else if (day === 5) {
+        if (currentTime >= weekdayOpen && currentTime < weekdayClose) {
           open = true;
           message = "Abierto ahora";
-          time = "Cierra 12:00 PM";
-        } else if (currentTime < saturdayOpen) {
+          time = "Cierra 5:00 PM";
+        } else if (currentTime < weekdayOpen) {
           message = "Cerrado ahora";
-          time = "Abre 9:00 AM";
+          time = "Abre hoy a las 9:00 AM";
         } else {
+          // Si es viernes después de las 5:00 PM, el próximo día hábil es el lunes
           message = "Cerrado ahora";
-          time = "Abre lunes 9:00 AM";
+          time = "Abre el lunes a las 9:00 AM";
         }
       }
-      // Domingo (0)
+      // Fines de semana: Sábado (6) y Domingo (0)
       else {
+        open = false;
         message = "Cerrado ahora";
-        time = "Abre lunes 9:00 AM";
+        time = "Abre el lunes a las 9:00 AM";
       }
 
       setIsOpen(open);
@@ -72,7 +72,7 @@ const ContactHero = () => {
     const interval = setInterval(checkIfOpen, 60000);
 
     return () => clearInterval(interval);
-  }, []);
+  },[]);
 
   return (
     <section className="relative pt-20 pb-10 lg:pt-32 lg:pb-16 bg-white overflow-hidden">
@@ -105,10 +105,12 @@ const ContactHero = () => {
             ></span>
             {statusMessage}
           </span>
-          <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-neutralbg border border-gray-200 text-gray-500 text-[10px] lg:text-xs font-bold uppercase tracking-widest">
-            <Clock size={14} />
-            {timeMessage}
-          </span>
+          {timeMessage && (
+            <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-neutralbg border border-gray-200 text-gray-500 text-[10px] lg:text-xs font-bold uppercase tracking-widest">
+              <Clock size={14} />
+              {timeMessage}
+            </span>
+          )}
         </motion.div>
 
         {/* TÍTULO PRINCIPAL */}

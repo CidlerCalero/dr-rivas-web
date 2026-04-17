@@ -44,7 +44,7 @@ const AppointmentCTA = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-primary">Horario</h4>
-                  <p className="text-sm text-gray-500">Lun-Vie: 9:00 AM - 5:00 PM / Sáb: 9:00 AM - 12:00 M</p>
+                  <p className="text-sm text-gray-500">Lun-Vie: 9:00 AM - 5:00 PM</p>
                 </div>
               </div>
             </div>

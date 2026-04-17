@@ -55,7 +55,7 @@ export default function Page() {
     },
     "telephone": "+50322986100",
     "url": "https://drrivascontrerasgastro.com",
-    "openingHours": "Mo-Fr 09:00-17:00, Sa 09:00-12:00"
+    "openingHours": "Mo-Fr 09:00-17:00"
   };
 
   return (
